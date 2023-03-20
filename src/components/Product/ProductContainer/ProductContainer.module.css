@@ -1,0 +1,12 @@
+.productContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 2rem;
+  border-radius: 10px;
+}
+
+.productContainer:hover {
+  box-shadow: rgba(64, 77, 148, 0.4) 0px 2px 8px 0px;
+}

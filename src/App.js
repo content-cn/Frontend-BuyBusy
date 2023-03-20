@@ -1,17 +1,30 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
-import AuthContextProvider from "./context/Auth/AuthState";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./components/Navbar/Navbar";
 import CartPage from "./pages/CartPage/CartPage";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import AuthContext from "./context/Auth/AuthContext";
 
 function App() {
+  const auth = getAuth();
+
+  const { setAuthUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setAuthUser(user);
+      }
+    });
+  }, []);
+
   return (
     <div className="App">
       <ToastContainer
@@ -24,18 +37,17 @@ function App() {
         draggable
         pauseOnHover
       />
-      <AuthContextProvider>
-        <header>
-          <Navbar />
-        </header>
-        <Routes>
-          <Route path="/" exact element={<HomePage />} />
-          <Route path="/signup" exact element={<RegisterPage />} />
-          <Route path="/signin" exact element={<LoginPage />} />
-          <Route path="/cart" exact element={<CartPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </AuthContextProvider>
+
+      <header>
+        <Navbar />
+      </header>
+      <Routes>
+        <Route path="/" exact element={<HomePage />} />
+        <Route path="/signup" exact element={<RegisterPage />} />
+        <Route path="/signin" exact element={<LoginPage />} />
+        <Route path="/cart" exact element={<CartPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
     </div>
   );
 }

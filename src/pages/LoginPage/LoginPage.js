@@ -2,6 +2,8 @@ import React, { useRef, useContext, useEffect } from "react";
 import AuthContext from "../../context/Auth/AuthContext";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import styles from "./LoginPage.module.css";
+import { NavLink } from "react-router-dom";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -36,21 +38,36 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={onSubmitHandler}>
+    <div className={styles.formContainer}>
+      <form className={styles.form} onSubmit={onSubmitHandler}>
+        <h2 className={styles.loginTitle}>Sign In</h2>
         <input
           type="email"
           name="email"
           ref={emailRef}
+          className={styles.loginInput}
           placeholder="Enter Email"
         />
         <input
           type="password"
           name="password"
           ref={passwordRef}
+          className={styles.loginInput}
           placeholder="Enter Password"
         />
-        <button>{loading ? "Loading" : "Sign In"}</button>
+        <button className={styles.loginBtn}>
+          {loading ? "Loading" : "Sign In"}
+        </button>
+        <NavLink
+          to="/signup"
+          style={{
+            textDecoration: "none",
+            color: "#224957",
+            fontFamily: "Quicksand",
+          }}
+        >
+          <p style={{ fontWeight: "600", margin: 0 }}>Or SignUp instead</p>
+        </NavLink>
       </form>
     </div>
   );

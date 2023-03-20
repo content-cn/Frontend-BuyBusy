@@ -12,7 +12,6 @@ import {
 export default (state, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
-      localStorage.setItem("user", JSON.stringify(action.payload.user));
       return {
         ...state,
         user: action.payload,
@@ -20,7 +19,6 @@ export default (state, action) => {
         loading: false,
       };
     case LOGOUT:
-      localStorage.clear();
       return {
         user: null,
         error: false,
@@ -28,7 +26,6 @@ export default (state, action) => {
         loading: false,
       };
     case LOGIN_FAIL:
-      localStorage.clear();
       return {
         user: null,
         error: true,
@@ -47,7 +44,6 @@ export default (state, action) => {
         message: "",
       };
     case SIGNUP_SUCCESS:
-      localStorage.setItem("user", JSON.stringify(action.payload.user));
       return {
         ...state,
         user: action.payload,

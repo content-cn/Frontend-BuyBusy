@@ -18,12 +18,11 @@ import {
   updateProfile,
   signOut,
 } from "firebase/auth";
-import axios from "axios";
 
 const AuthState = ({ children }) => {
   const auth = getAuth();
   const initialState = {
-    user: JSON.parse(localStorage.getItem("user")) || null,
+    user: null,
     error: false,
     message: "",
     loading: false,
@@ -41,10 +40,9 @@ const AuthState = ({ children }) => {
       const res = await signInWithEmailAndPassword(auth, email, password);
       dispatch({ type: LOGIN_SUCCESS, payload: res });
     } catch (error) {
-      console.log(error);
       dispatch({
         type: LOGIN_FAIL,
-        payload: "Please enter valid email and password",
+        payload: error.message.split(": ")[1],
       });
     }
   };
@@ -65,7 +63,7 @@ const AuthState = ({ children }) => {
       console.log(error);
       dispatch({
         type: SIGNUP_FAIL,
-        payload: "Something went wrong!",
+        payload: error.message.split(": ")[1],
       });
     }
   };
