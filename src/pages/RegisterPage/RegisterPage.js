@@ -24,7 +24,7 @@ const RegisterPage = () => {
       toast.error(message);
       clearError();
     }
-  }, [error, user]);
+  }, [error, user, message]);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -60,7 +60,7 @@ const RegisterPage = () => {
           ref={passwordRef}
           placeholder="Enter Password"
         />
-        <button>{loading ? "Loading" : "Sign Up"}</button>
+        <button>{loading ? "..." : "Sign Up"}</button>
       </form>
     </div>
   );

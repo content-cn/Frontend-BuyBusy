@@ -28,7 +28,7 @@ const ProductDetails = ({ title, price, productId, onCart }) => {
   return (
     <div className={styles.productDetails}>
       <div className={styles.productName}>
-        <p>{`${title.slice(0, 25)}...`}</p>
+        <p>{`${title.slice(0, 35)}...`}</p>
       </div>
       <div className={styles.productOptions}>
         <p>₹ {price}</p>

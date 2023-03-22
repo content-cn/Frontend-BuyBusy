@@ -56,7 +56,7 @@ const LoginPage = () => {
           placeholder="Enter Password"
         />
         <button className={styles.loginBtn}>
-          {loading ? "Loading" : "Sign In"}
+          {loading ? "..." : "Sign In"}
         </button>
         <NavLink
           to="/signup"

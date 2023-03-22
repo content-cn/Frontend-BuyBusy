@@ -5,6 +5,7 @@
   align-items: center;
   padding: 2rem 2rem;
   border-radius: 10px;
+  transition: all 0.25s ease-in-out;
 }
 
 .productContainer:hover {
