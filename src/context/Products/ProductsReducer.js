@@ -3,6 +3,7 @@ import {
   SET_ERROR,
   TOGGLE_LOADING,
   SET_FILTERED_PRODUCTS,
+  SET_CART_PRODUCTS,
 } from "./types";
 
 export default (state, action) => {
@@ -29,6 +30,11 @@ export default (state, action) => {
       return {
         ...state,
         loading: !state.loading,
+      };
+    case SET_CART_PRODUCTS:
+      return {
+        ...state,
+        cartProducts: action.payload,
       };
     default:
       return state;

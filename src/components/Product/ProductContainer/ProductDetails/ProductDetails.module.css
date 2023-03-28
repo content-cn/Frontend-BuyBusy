@@ -41,8 +41,23 @@
   margin: 0;
 }
 
-.addBtn,
-.updateBtn {
+.quantityContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 50%;
+}
+
+.quantityContainer img {
+  transition: all 0.1s ease-in-out;
+}
+
+.quantityContainer img:hover {
+  cursor: pointer;
+  transform: scale(1.15);
+}
+
+.addBtn {
   color: #fff;
   padding: 0.75rem 0;
   border: 1px solid #7064e5;
@@ -51,9 +66,18 @@
   font-size: 20px;
   background: #7064e5;
   transition: all 0.3s ease-in-out;
+  width: 100%;
 }
 
-.addBtn {
+.removeBtn {
+  color: #fff;
+  padding: 0.75rem 0;
+  border: 1px solid red;
+  border-radius: 6px;
+  width: 50%;
+  font-size: 20px;
+  background: rgb(241, 68, 68);
+  transition: all 0.3s ease-in-out;
   width: 100%;
 }
 
@@ -62,6 +86,13 @@
   color: #7064e5;
   background-color: transparent;
   border: 1px solid #7064e5;
+}
+
+.removeBtn:hover {
+  cursor: pointer;
+  color: rgb(241, 68, 68);
+  background-color: transparent;
+  border: 1px solid rgb(241, 68, 68);
 }
 
 .editForm {

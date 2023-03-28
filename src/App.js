@@ -9,6 +9,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./components/Navbar/Navbar";
 import CartPage from "./pages/CartPage/CartPage";
+import OrdersPage from "./pages/OrdersPage/OrdersPage";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import AuthContext from "./context/Auth/AuthContext";
 import ProductsContextProvider from "./context/Products/ProductsState";
@@ -31,7 +32,7 @@ function App() {
       <ProductsContextProvider>
         <ToastContainer
           position="top-right"
-          autoClose={3000}
+          autoClose={2000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick
@@ -48,6 +49,7 @@ function App() {
           <Route path="/signup" exact element={<RegisterPage />} />
           <Route path="/signin" exact element={<LoginPage />} />
           <Route path="/cart" exact element={<CartPage />} />
+          <Route path="/myorders" exact element={<OrdersPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </ProductsContextProvider>

@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useContext } from "react";
 import { toast } from "react-toastify";
 import { NavLink, useNavigate } from "react-router-dom";
 import AuthContext from "../../context/Auth/AuthContext";
+import styles from "./RegisterPage.module.css";
 
 const RegisterPage = () => {
   const nameRef = useRef();
@@ -45,22 +46,34 @@ const RegisterPage = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={onSubmitHandler}>
-        <input type="text" name="name" ref={nameRef} placeholder="Enter Name" />
+    <div className={styles.formContainer}>
+      <form className={styles.form} onSubmit={onSubmitHandler}>
+        <h2 className={styles.loginTitle}>Sign Up</h2>
+        <input
+          type="text"
+          name="name"
+          ref={nameRef}
+          placeholder="Enter Name"
+          className={styles.loginInput}
+        />
         <input
           type="email"
           name="email"
           ref={emailRef}
+          className={styles.loginInput}
           placeholder="Enter Email"
         />
         <input
           type="password"
           name="password"
           ref={passwordRef}
+          className={styles.loginInput}
           placeholder="Enter Password"
         />
-        <button>{loading ? "..." : "Sign Up"}</button>
+        <button className={styles.loginBtn}>
+          {" "}
+          {loading ? "..." : "Sign Up"}
+        </button>
       </form>
     </div>
   );

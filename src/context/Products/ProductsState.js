@@ -1,7 +1,7 @@
 import { useReducer } from "react";
 import ProductsContext from "./ProductsContext";
 import ProductsReducer from "./ProductsReducer";
-import { collection, doc, query, getDocs } from "firebase/firestore";
+import { collection, doc, query, getDocs, getDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import {
   SET_PRODUCTS,
@@ -15,6 +15,7 @@ const AuthState = ({ children }) => {
     loading: false,
     products: [],
     filteredProducts: [],
+    cartProducts: [],
     error: "",
   };
 

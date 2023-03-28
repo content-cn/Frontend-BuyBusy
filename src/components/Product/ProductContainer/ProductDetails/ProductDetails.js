@@ -3,9 +3,23 @@ import styles from "./ProductDetails.module.css";
 import { toast } from "react-toastify";
 import AuthContext from "../../../../context/Auth/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { updateDoc, setDoc } from "firebase/firestore";
+import MinusIcon from "../../../UI/Icons/MinusIcon";
+import PlusIcon from "../../../UI/Icons/PlusIcon";
+import { getUserCartProducts } from "../../../../utils/utils";
 
-const ProductDetails = ({ title, price, productId, onCart }) => {
+const ProductDetails = ({
+  title,
+  price,
+  productId,
+  onCart,
+  quantity,
+  removeProductFromCart,
+  updateProductQuantity,
+  filterProductFromState,
+}) => {
   const [productAddingToCart, setProductAddingToCart] = useState(false);
+  const [productRemovingFromCart, setProductRemovingCart] = useState(false);
   const { user } = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -17,11 +31,98 @@ const ProductDetails = ({ title, price, productId, onCart }) => {
     }
 
     try {
-      toast.success(productId);
+      const { data, docRef } = await getUserCartProducts(user.uid);
+
+      if (data && data.myCart[productId]) {
+        const { myCart: cart } = data;
+        const currentProductCount = cart[productId];
+        const updatedCart = {
+          ...cart,
+          [productId]: currentProductCount + 1,
+        };
+
+        updateDoc(docRef, {
+          myCart: updatedCart,
+        });
+
+        return toast.success("Increase product count!");
+      }
+
+      const cart = data?.myCart || {};
+      await setDoc(docRef, {
+        myCart: { ...cart, [productId]: 1 },
+      });
+
+      toast.success("Product Added Successfully!");
     } catch (error) {
+      console.log(error);
       toast.error(error.message);
     } finally {
       setProductAddingToCart(false);
+    }
+  };
+
+  const removeProduct = async () => {
+    setProductRemovingCart(true);
+    await removeProductFromCart(productId);
+    setProductRemovingCart(false);
+  };
+
+  const handleAdd = async () => {
+    try {
+      const { data, docRef } = await getUserCartProducts(user.uid);
+
+      const { myCart: cart } = data;
+      if (cart && cart[productId]) {
+        const currentProductCount = cart[productId];
+        const updatedCart = {
+          ...cart,
+          [productId]: currentProductCount + 1,
+        };
+
+        await updateDoc(docRef, {
+          myCart: updatedCart,
+        });
+
+        updateProductQuantity("add", productId);
+
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
+
+  const handleRemove = async () => {
+    try {
+      const { data, docRef } = await getUserCartProducts(user.uid);
+
+      const { myCart: cart } = data;
+      if (cart && cart[productId]) {
+        const productCountAfterRemove = cart[productId] - 1;
+
+        const updatedCart = {
+          ...cart,
+          [productId]: productCountAfterRemove,
+        };
+
+        if (productCountAfterRemove === 0) delete updatedCart[productId];
+
+        await updateDoc(docRef, {
+          myCart: updatedCart,
+        });
+
+        if (productCountAfterRemove === 0)
+          return filterProductFromState(productId);
+
+        updateProductQuantity("remove", productId);
+
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
     }
   };
 
@@ -32,16 +133,32 @@ const ProductDetails = ({ title, price, productId, onCart }) => {
       </div>
       <div className={styles.productOptions}>
         <p>₹ {price}</p>
+        {onCart && (
+          <div className={styles.quantityContainer}>
+            <MinusIcon handleRemove={handleRemove} />
+            {quantity}
+            <PlusIcon handleAdd={handleAdd} />
+          </div>
+        )}
       </div>
       {!onCart ? (
         <button
           className={styles.addBtn}
           title="Add to Cart"
+          disabled={productAddingToCart}
           onClick={addProductToCart}
         >
           {productAddingToCart ? "Adding" : "Add To Cart"}
         </button>
-      ) : null}
+      ) : (
+        <button
+          className={styles.removeBtn}
+          title="Remove from Cart"
+          onClick={removeProduct}
+        >
+          {productRemovingFromCart ? "Removing" : "Remove From Cart"}
+        </button>
+      )}
     </div>
   );
 };

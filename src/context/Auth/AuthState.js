@@ -38,7 +38,8 @@ const AuthState = ({ children }) => {
     dispatch({ type: TOGGLE_LOADING });
     try {
       const res = await signInWithEmailAndPassword(auth, email, password);
-      dispatch({ type: LOGIN_SUCCESS, payload: res });
+      console.log(res);
+      dispatch({ type: LOGIN_SUCCESS, payload: res.user });
     } catch (error) {
       dispatch({
         type: LOGIN_FAIL,
@@ -58,7 +59,7 @@ const AuthState = ({ children }) => {
         displayName: name,
       });
 
-      dispatch({ type: SIGNUP_SUCCESS, payload: res });
+      dispatch({ type: SIGNUP_SUCCESS, payload: res.user });
     } catch (error) {
       console.log(error);
       dispatch({

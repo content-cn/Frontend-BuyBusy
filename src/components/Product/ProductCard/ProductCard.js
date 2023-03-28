@@ -4,9 +4,12 @@ import ProductDetails from "../ProductContainer/ProductDetails/ProductDetails";
 import ProductImage from "../ProductContainer/ProductImage/ProductImage";
 
 const ProductCard = ({
-  product: { title, price, image, id },
+  product: { title, price, image, id, quantity },
   onOwnPage,
   onCart,
+  removeProductFromCart,
+  updateProductQuantity,
+  filterProductFromState,
 }) => {
   return (
     <ProductContainer>
@@ -17,6 +20,10 @@ const ProductCard = ({
         onOwnPage={onOwnPage}
         productId={id}
         onCart={onCart}
+        quantity={quantity}
+        removeProductFromCart={removeProductFromCart}
+        updateProductQuantity={updateProductQuantity}
+        filterProductFromState={filterProductFromState}
       />
     </ProductContainer>
   );
