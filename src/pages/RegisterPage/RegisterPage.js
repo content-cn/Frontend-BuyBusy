@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useContext } from "react";
 import { toast } from "react-toastify";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/Auth/AuthContext";
 import styles from "./RegisterPage.module.css";
 

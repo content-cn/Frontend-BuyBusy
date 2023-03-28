@@ -6,7 +6,7 @@ const ProductImage = ({ image }) => {
     <div className={styles.imageContainer}>
       <img
         src={image}
-        alt="Product Image"
+        alt="Product"
         width="100%"
         height="100%"
         style={{ objectFit: "contain" }}

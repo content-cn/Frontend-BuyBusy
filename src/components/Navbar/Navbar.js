@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import { toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 //Icons..
@@ -8,13 +7,11 @@ import OrdersIcon from "../../assets/basket.png";
 import SignIn from "../../assets/Log in.png";
 import Logout from "../../assets/Log Out.png";
 import Cart from "../../assets/cart.png";
-import HeadPhone from "../../assets/headphone.png";
 
 import AuthContext from "../../context/Auth/AuthContext";
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
-  const handleClick = () => setClick(!click);
 
   const { user, logout } = useContext(AuthContext);
   const isAuthenticated = user;
@@ -49,7 +46,6 @@ const Navbar = () => {
               activeclassname="active-links"
               to="/"
               className="nav-links"
-              onClick={() => {}}
               exact="true"
             >
               <span>
@@ -83,23 +79,7 @@ const Navbar = () => {
                   My orders
                 </NavLink>
               </li>
-              {/* <li className="nav-item active">
-                <NavLink
-                  activeclassname="active-links"
-                  to="/myproducts"
-                  className="nav-links"
-                >
-                  <span>
-                    <img
-                      className="icon_styles"
-                      src={HeadPhone}
-                      alt="Home"
-                      onClick={scrollTop}
-                    />
-                  </span>{" "}
-                  My Products
-                </NavLink>
-              </li> */}
+
               <li className="nav-item active">
                 <NavLink
                   activeclassname="active-links"
@@ -120,17 +100,7 @@ const Navbar = () => {
             </>
           )}
 
-          <li
-            className="nav-item active"
-            // onClick={() => {
-            //   isAuthenticated
-            //     ? signOut(auth).then(() => {
-            //         toast.warning(`Signout Success`);
-            //         history.push("/login");
-            //       })
-            //     : history.push("/login");
-            // }}
-          >
+          <li className="nav-item active">
             {isAuthenticated ? (
               <NavLink
                 to="/"
