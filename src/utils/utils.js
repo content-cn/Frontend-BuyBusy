@@ -52,4 +52,13 @@ const getUserCartProducts = async (uid) => {
   return { docRef, data: docSnap.data() };
 };
 
-export { addDataToCollection, getProductsUsingProductIds, getUserCartProducts };
+const convertDate = (date) => {
+  return new Date(date).toISOString().split("T")[0];
+};
+
+export {
+  addDataToCollection,
+  getProductsUsingProductIds,
+  getUserCartProducts,
+  convertDate,
+};

@@ -6,6 +6,7 @@ import { getProductsUsingProductIds } from "../../utils/utils";
 import Loader from "../../components/UI/Loader/Loader";
 import styles from "./OrdersPage.module.css";
 import { toast } from "react-toastify";
+import OrderTable from "../../components/OrderTable/OrderTable";
 
 const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
@@ -45,10 +46,6 @@ const OrdersPage = () => {
     }
   };
 
-  const convertDate = (date) => {
-    return new Date(date).toISOString().split("T")[0];
-  };
-
   useEffect(() => {
     getOrders();
   }, []);
@@ -64,43 +61,7 @@ const OrdersPage = () => {
     <div className={styles.ordersContainer}>
       <h1>Your Orders</h1>
       {orders.map((order, idx) => {
-        return (
-          <div key={idx} style={{ textAlign: "center", marginTop: "2rem" }}>
-            {order[0].date && (
-              <h2>Ordered On:- {convertDate(order[0].date)}</h2>
-            )}
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th>Total Price</th>
-                </tr>
-              </thead>
-              <tbody>
-                {order.map((product, idx) => {
-                  return (
-                    <tr key={idx}>
-                      <td>{product.title.slice(0, 25) + "..."}</td>
-                      <td>{`₹ ${product.price} `}</td>
-                      <td>{`${product.quantity} `}</td>
-                      <td>{`₹ ${product.quantity * product.price}`}</td>
-                    </tr>
-                  );
-                })}
-                <tr></tr>
-              </tbody>
-              <tr className={styles.totalPrice}>
-                <td>
-                  {`₹ ${order.reduce((acc, currentProduct) => {
-                    return acc + currentProduct.price * currentProduct.quantity;
-                  }, 0)}`}
-                </td>
-              </tr>
-            </table>
-          </div>
-        );
+        return <OrderTable order={order} key={idx} />;
       })}
     </div>
   );
