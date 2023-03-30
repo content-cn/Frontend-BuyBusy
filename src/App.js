@@ -19,6 +19,7 @@ function App() {
 
   const { setAuthUser } = useContext(AuthContext);
 
+  // Authenticate the user if he is already logged in and set the user in the auth context.
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -50,6 +51,7 @@ function App() {
           <Route path="/signin" exact element={<LoginPage />} />
           <Route path="/cart" exact element={<CartPage />} />
           <Route path="/myorders" exact element={<OrdersPage />} />
+          {/* NotFoundPage would be rendered if an invalid route is tried to access */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </ProductsContextProvider>

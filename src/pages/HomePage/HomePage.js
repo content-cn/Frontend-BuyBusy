@@ -24,15 +24,18 @@ function HomePage() {
     filterProducts,
   } = useContext(ProductsContext);
 
+  // Fetch products on app mount
   useEffect(() => {
     getAllProducts();
     // addDataToCollection();
   }, []);
 
+  // Rerender the products if the search or filter parameters change
   useEffect(() => {
     filterProducts({ priceRange, searchQuery: query, categories });
   }, [priceRange, query, categories]);
 
+  // Display loader while products are fetching
   if (loading) {
     return <Loader />;
   }

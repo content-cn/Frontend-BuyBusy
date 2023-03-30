@@ -10,6 +10,7 @@ const ProductList = ({
   updateProductQuantity,
   filterProductFromState,
 }) => {
+  // Component to display the product list
   return (
     <ProductGrid style={{ ...style }}>
       {products.map((product, idx) => {

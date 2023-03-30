@@ -20,9 +20,10 @@ const Navbar = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // Function to logout from app
   const onLogoutHandler = () => {
     scrollTop();
-    logout();
+    logout(); // inbuilt firebase function to logout
   };
 
   return (
@@ -35,7 +36,7 @@ const Navbar = () => {
     >
       <div className="navbar-container">
         <NavLink to="/" className="navbar-logo" onClick={() => {}}>
-          Buy Busy
+          Busy Buy
         </NavLink>
         <ul
           className={click ? "nav-menu active" : "nav-menu"}

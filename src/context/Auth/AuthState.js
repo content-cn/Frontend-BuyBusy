@@ -30,6 +30,7 @@ const AuthState = ({ children }) => {
 
   const [state, dispatch] = useReducer(AuthReducer, initialState);
 
+  // Sets the authenticated user
   const setAuthUser = (user) => {
     dispatch({ type: SET_AUTH_USER, payload: user });
   };

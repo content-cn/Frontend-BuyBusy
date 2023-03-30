@@ -37,6 +37,7 @@ const AuthState = ({ children }) => {
     }
   };
 
+  // Function to filter and search products
   const filterProducts = (filterObj) => {
     const {
       searchQuery,

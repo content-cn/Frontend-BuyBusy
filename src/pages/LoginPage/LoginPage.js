@@ -15,10 +15,12 @@ const LoginPage = () => {
   const isAuth = user;
 
   useEffect(() => {
+    // If user is authenticated redirect him to home page
     if (isAuth) {
       navigate("/");
     }
 
+    // If some error occurs display the error
     if (error) {
       toast.error(message);
       clearError();
@@ -30,6 +32,7 @@ const LoginPage = () => {
     const emailVal = emailRef.current.value;
     const passwordVal = passwordRef.current.value;
 
+    // Form validation
     if (emailVal === "" || passwordVal === "" || passwordVal.length < 6) {
       return toast.error("Please enter valid data!");
     }

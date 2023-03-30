@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./ProductImage.module.css";
 
+// Product Image Component
 const ProductImage = ({ image }) => {
   return (
     <div className={styles.imageContainer}>

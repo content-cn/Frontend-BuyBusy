@@ -3,6 +3,7 @@ import ProductContainer from "../ProductContainer/ProductContainer";
 import ProductDetails from "../ProductContainer/ProductDetails/ProductDetails";
 import ProductImage from "../ProductContainer/ProductImage/ProductImage";
 
+// Product Card component
 const ProductCard = ({
   product: { title, price, image, id, quantity },
   onOwnPage,

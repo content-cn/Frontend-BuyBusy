@@ -5,6 +5,7 @@ import AuthContext from "../../context/Auth/AuthContext";
 import styles from "./RegisterPage.module.css";
 
 const RegisterPage = () => {
+  // Input refs
   const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -17,10 +18,12 @@ const RegisterPage = () => {
   const isAuth = user;
 
   useEffect(() => {
+    // If user is authenticated redirect him to home page
     if (isAuth) {
       navigate("/");
     }
 
+    // If some error occurs display the error
     if (error) {
       toast.error(message);
       clearError();
@@ -33,6 +36,7 @@ const RegisterPage = () => {
     const emailVal = emailRef.current.value;
     const passwordVal = passwordRef.current.value;
 
+    // Form validation
     if (
       emailVal === "" ||
       nameVal === "" ||
@@ -42,6 +46,7 @@ const RegisterPage = () => {
       return toast.error("Please enter valid data!");
     }
 
+    // call the signup function
     await signup({ name: nameVal, email: emailVal, password: passwordVal });
   };
 
@@ -71,7 +76,6 @@ const RegisterPage = () => {
           placeholder="Enter Password"
         />
         <button className={styles.loginBtn}>
-          {" "}
           {loading ? "..." : "Sign Up"}
         </button>
       </form>

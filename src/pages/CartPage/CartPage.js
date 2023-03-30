@@ -20,6 +20,7 @@ const CartPage = () => {
 
   const navigate = useNavigate();
 
+  // Calculate total price of the products in cart
   let totalPrice = cartProducts.reduce((acc, currentProduct) => {
     return acc + currentProduct.price * currentProduct.quantity;
   }, 0);
@@ -37,19 +38,23 @@ const CartPage = () => {
       const docSnap = await getDoc(docRef);
       const data = docSnap.data();
 
+      // If users orders exist add one new order to the orders list
       if (data) {
         updateDoc(docRef, {
           orders: arrayUnion({ ...cartProductsMap, date: Date.now() }),
         });
 
+        // Redirect the user to orders page after successful purchase
         clearUserCartAndRedirectToOrdersPage();
         return;
       }
 
+      // Create a new orders array if no orders yet
       await setDoc(docRef, {
         orders: [{ ...cartProductsMap, date: Date.now() }],
       });
 
+      // Redirect the user to orders page after successful purchase
       clearUserCartAndRedirectToOrdersPage();
     } catch (error) {
       console.log(error);
@@ -58,6 +63,7 @@ const CartPage = () => {
     }
   };
 
+  // Clear user cart
   const clearUserCartAndRedirectToOrdersPage = async () => {
     const userCartRef = doc(db, "usersCarts", user.uid);
 
@@ -71,6 +77,7 @@ const CartPage = () => {
     navigate("/myorders");
   };
 
+  // Fetch user cart products
   const getCartProducts = async (uid) => {
     setLoading(true);
     try {
@@ -92,6 +99,7 @@ const CartPage = () => {
     }
   };
 
+  // Remove product from cart and cart products list
   const filterProductFromState = (productId) => {
     delete cartProductsMap[productId];
     setCartProducts((prevCartProducts) => {
@@ -101,6 +109,7 @@ const CartPage = () => {
     });
   };
 
+  // Remove product from the database
   const removeProductFromCart = async (productId) => {
     try {
       const { data, docRef } = await getUserCartProducts(user.uid);
@@ -128,6 +137,7 @@ const CartPage = () => {
     }
   };
 
+  // Update the quantity of a specific product in the UI
   const updateProductQuantity = (type, id) => {
     let tempCart = cartProducts.map((product) => {
       if (product.id === id) {

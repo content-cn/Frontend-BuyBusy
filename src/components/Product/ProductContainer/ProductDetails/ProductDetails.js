@@ -24,8 +24,10 @@ const ProductDetails = ({
 
   const navigate = useNavigate();
 
+  // Function to add product to cart
   const addProductToCart = async () => {
     setProductAddingToCart(true);
+    // Redirect to login page if user is not authenticated
     if (!user) {
       return navigate("/signin");
     }
@@ -33,6 +35,7 @@ const ProductDetails = ({
     try {
       const { data, docRef } = await getUserCartProducts(user.uid);
 
+      // If cart exists then update the cart
       if (data && data.myCart[productId]) {
         const { myCart: cart } = data;
         const currentProductCount = cart[productId];
@@ -48,6 +51,7 @@ const ProductDetails = ({
         return toast.success("Increase product count!");
       }
 
+      // Create a new cart if it does not exist
       const cart = data?.myCart || {};
       await setDoc(docRef, {
         myCart: { ...cart, [productId]: 1 },
@@ -68,6 +72,7 @@ const ProductDetails = ({
     setProductRemovingCart(false);
   };
 
+  // Handling the product quantity increase
   const handleAdd = async () => {
     try {
       const { data, docRef } = await getUserCartProducts(user.uid);
@@ -94,6 +99,7 @@ const ProductDetails = ({
     }
   };
 
+  // Handling the product quantity decrease
   const handleRemove = async () => {
     try {
       const { data, docRef } = await getUserCartProducts(user.uid);
@@ -141,6 +147,7 @@ const ProductDetails = ({
           </div>
         )}
       </div>
+      {/* Conditionally Rendering buttons based on the screen */}
       {!onCart ? (
         <button
           className={styles.addBtn}

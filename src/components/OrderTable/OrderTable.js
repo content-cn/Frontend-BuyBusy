@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./OrderTable.module.css";
 import { convertDate } from "../../utils/utils";
 
+// Component to display user order in table format
 const OrderTable = ({ order }) => {
   return (
     <div style={{ textAlign: "center", marginTop: "2rem" }}>
@@ -30,6 +31,7 @@ const OrderTable = ({ order }) => {
         </tbody>
         <tr className={styles.totalPrice}>
           <td>
+            {/* Display total price of products for that particular order */}
             {`₹ ${order.reduce((acc, currentProduct) => {
               return acc + currentProduct.price * currentProduct.quantity;
             }, 0)}`}
