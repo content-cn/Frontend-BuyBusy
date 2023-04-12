@@ -16,7 +16,6 @@ import ProductsContextProvider from "./context/Products/ProductsState";
 
 function App() {
   const auth = getAuth();
-
   const { setAuthUser } = useContext(AuthContext);
 
   // Authenticate the user if he is already logged in and set the user in the auth context.
